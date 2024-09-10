@@ -37,7 +37,9 @@ def treats(people: int) -> int:
 
 def cost(tea_count: int, treat_count: int) -> float:
     """calculates cost of tea and treats"""
-    return tea_count * 0.50 + treat_count * 0.75
+    return (
+        tea_count * 0.50 + treat_count * 0.75
+    )  # multiplies # of teabags and treats by their prices
 
 
 if __name__ == "__main__":
