@@ -5,7 +5,7 @@ __author__ = "730577493"
 
 def input_guess(secret_word_len: int) -> str:
     """Makes sure user uses correct word length"""
-    guess: str = input("Enter a " + str(secret_word_len) + "-character word: ")
+    guess: str = input(f"Enter a {secret_word_len} character word: ")
     while len(guess) != secret_word_len:  # no if-else needed, just a while loop
         # to ensure that the prompt "Try again" works correctly
         guess = input(
@@ -20,7 +20,7 @@ def contains_char(secret_word: str, char_guess: str) -> bool:
     idx: int = 0
     count: int = 0  # used same setup as from ex02 to get instances a char appears
     while idx < len(secret_word):
-        if char_guess == secret_word[index]:
+        if char_guess == secret_word[idx]:
             count += 1  # to record instances a character appears in word
         idx += 1
     if count >= 1:
@@ -44,31 +44,34 @@ def emojified(guess: str, secret_word: str) -> str:
     while idx < len(secret_word):
         contains_char_value: bool = contains_char(secret_word, guess[idx])
         # will use this to output yellow box if letter is present but not in right place
-        # but using parameters directly from this fxn rather than from the original contains_char
+        # but using parameters directly from this fxn rather than from the original
+        # contains_char
         if secret_word[idx] == guess[idx]:
-            emoji += GREEN_BOX  # green will show if letter from guessed word is in right place according to secret word
+            emoji += GREEN_BOX  # green will show if letter from guessed word is in
+            # right place according to secret word
         elif contains_char_value is True:
-            emoji += YELLOW_BOX  # yellow shows if letter from guessed word is also present in secret word
+            emoji += YELLOW_BOX  # yellow shows if letter from guessed word is also
+            # present in secret word
             # but not in right place
         else:
-            emoji += WHITE_BOX  # white shows if letter from guessed word is not present in secret word
+            emoji += WHITE_BOX  # white shows if letter from guessed word is not
+            # present in secret word
         idx += 1  # to go through every letter in guessed word
     return emoji
 
 
-def main() -> None:
+def main(secret: str) -> None:
     """The entrypoint of the program and main game loop."""
     turn_number: int = 1  # records number of turns taken
-    secret_word: str = "codes"
     win_status: bool = False  # until they win, then it will be changed to True
     while (
         turn_number < 7 and win_status is False
     ):  # so player can only guess 6 times, and only as long
         # as they haven't won yet
         print(f"=== Turn {turn_number}/6 ===")
-        guess: str = input_guess(len(secret_word))
-        print(emojified(guess, secret_word))
-        if guess == secret_word:
+        guess: str = input_guess(len(secret))
+        print(emojified(guess, secret))
+        if guess == secret:
             win_status = (
                 True  # so if player wins, game ends with congratulatory message
             )
@@ -81,5 +84,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(secret="codes")
 # makes it possible to run Python program as a module
